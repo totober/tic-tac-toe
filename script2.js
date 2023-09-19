@@ -24,13 +24,14 @@ const gameBoard = (() => {
         console.log(board[index].valueOf())
         alert("already marked! Choose another square!")
 
+
     } else {
         board[index] = playerMark;
         Game.nextPlayer()
+
     }
-
-        
-
+    
+        Game.winner(board);
    }
 
     return {render, update, board}
@@ -55,7 +56,6 @@ let Game = (() => {
     }
 
     let currentPlayerIndex = 0;
-    let gameOver = false;
 
     function nextPlayer () {
         if(currentPlayerIndex === 0) {
@@ -74,18 +74,46 @@ let Game = (() => {
         console.log(playerMark)
 
         gameBoard.update(index, playerMark);
-
-        
-
         gameBoard.render();
 
     }
 
+    function winner (board) {
+        if ((board[0] === "X" && board[1] === "X" && board[2] === "X") ||
+            (board[3] === "X" && board[4] === "X" && board[5] === "X") ||
+            (board[6] === "X" && board[7] === "X" && board[8] === "X") ||
+            (board[0] === "X" && board[4] === "X" && board[8] === "X") ||
+            (board[2] === "X" && board[4] === "X" && board[6] === "X")) 
+            {
+                alert("Player 1 wins!");
+            }
+        else if ((board[0] === "O" && board[1] === "O" && board[2] === "O") ||
+                (board[3] === "O" && board[4] === "O" && board[5] === "O") ||
+                (board[6] === "O" && board[7] === "O" && board[8] === "O") ||
+                (board[0] === "O" && board[4] === "O" && board[8] === "O") ||
+                (board[2] === "O" && board[4] === "O" && board[6] === "O"))
+                {
+                    alert("Player 2 wins!")
+                }
+    }
 
-    return {start, indexOf, nextPlayer, players}
+    function reset () {
+        board = ["","","","","","","","",""];
+    }
+
+
+
+
+    return {start, indexOf, nextPlayer, winner, reset, players}
     
 })()
 
+
 let btn = document.querySelector(".start")
-btn.addEventListener("click", Game.start) 
+btn.addEventListener("click", Game.start)
+
+let btn2 = document.querySelector(".reset")
+btn2.addEventListener("click", Game.reset)
+
+
 
