@@ -18,9 +18,18 @@ const gameBoard = (() => {
     })
    }
 
-   function update(index, value) {
+   function update(index, playerMark) {
 
-        board[index] = value;
+    if((board[index].valueOf() === "X") || (board[index].valueOf() === "O")){
+        console.log(board[index].valueOf())
+        alert("already marked! Choose another square!")
+
+    } else {
+        board[index] = playerMark;
+        Game.nextPlayer()
+    }
+
+        
 
    }
 
@@ -48,23 +57,32 @@ let Game = (() => {
     let currentPlayerIndex = 0;
     let gameOver = false;
 
+    function nextPlayer () {
+        if(currentPlayerIndex === 0) {
+            currentPlayerIndex = 1
+        } else {
+            currentPlayerIndex = 0
+        }
+    }
+
     function indexOf (e) {
 
         let index = e.target.id.split("-").splice(2,1).toString()
         console.log(index)
 
-        gameBoard.update(index, players[currentPlayerIndex].mark);
+        let playerMark = players[currentPlayerIndex].mark;
+        console.log(playerMark)
 
-        console.log(players[currentPlayerIndex].mark)
+        gameBoard.update(index, playerMark);
 
+        
 
-
-        //gameBoard.render();
+        gameBoard.render();
 
     }
 
 
-    return {start, indexOf, players}
+    return {start, indexOf, nextPlayer, players}
     
 })()
 
