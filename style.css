@@ -17,42 +17,42 @@ section {
     border: 1px solid black;
 }
 
-div {
+article {
     border: 1px solid blue;
 }
 
-/* article.one {
+article#data-index-0 {
     grid-area: one;
 }
 
-article.two {
+article#data-index-1 {
     grid-area: two;
 }
 
-article.three {
+article#data-index-2 {
     grid-area: three;
 }
 
-article.four {
+article#data-index-3 {
     grid-area: four;
 }
 
-article.five {
+article#data-index-4 {
     grid-area: five;
 }
 
-article.six {
+article#data-index-5 {
     grid-area: six;
 }
 
-article.seven {
+article#data-index-6 {
     grid-area: seven;
 }
 
-article.eight {
+article#data-index-7 {
     grid-area: eight;
 }
 
-article.nine {
+article#data-index-8 {
     grid-area: nine;
-} */
+} 

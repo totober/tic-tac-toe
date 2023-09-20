@@ -5,11 +5,10 @@ const gameBoard = (() => {
    let container = document.querySelector("section"); 
 
    let board = ["","","","","","","","",""];
-   console.log(board);
 
    function render () {
         board.forEach((item, index) => {
-        let box = document.createElement("div");
+        let box = document.createElement("article");
         box.classList.add("square");
         box.id = `data-index-${index}`;
         box.addEventListener("click", Game.indexOf);
@@ -18,23 +17,19 @@ const gameBoard = (() => {
     })
    }
 
-   function update(index, playerMark) {
-
-    if((board[index].valueOf() === "X") || (board[index].valueOf() === "O")){
-        console.log(board[index].valueOf())
-        alert("already marked! Choose another square!")
-
-
-    } else {
-        board[index] = playerMark;
-        Game.nextPlayer()
-
-    }
-    
-        Game.winner(board);
+   function getBoard () {
+     return board
    }
 
-    return {render, update, board}
+   function update(index, playerMark) {
+
+    board[index] = playerMark;
+    Game.nextPlayer();
+    Game.winner(board);
+    
+   }
+
+    return {render, update, getBoard, board}
 })()
 
 
@@ -73,8 +68,12 @@ let Game = (() => {
         let playerMark = players[currentPlayerIndex].mark;
         console.log(playerMark)
 
-        gameBoard.update(index, playerMark);
-        gameBoard.render();
+        if(gameBoard.getBoard()[index].valueOf() === ""){
+            gameBoard.update(index, playerMark);
+        }
+
+            gameBoard.render();
+        
 
     }
 
@@ -86,6 +85,7 @@ let Game = (() => {
             (board[2] === "X" && board[4] === "X" && board[6] === "X")) 
             {
                 alert("Player 1 wins!");
+                Game.reset();
             }
         else if ((board[0] === "O" && board[1] === "O" && board[2] === "O") ||
                 (board[3] === "O" && board[4] === "O" && board[5] === "O") ||
@@ -93,20 +93,24 @@ let Game = (() => {
                 (board[0] === "O" && board[4] === "O" && board[8] === "O") ||
                 (board[2] === "O" && board[4] === "O" && board[6] === "O"))
                 {
-                    alert("Player 2 wins!")
+                    alert("Player 2 wins!");
+                    Game.reset();
                 }
     }
 
-    function reset () {
-        board = ["","","","","","","","",""];
+    function reset() {
+
+        for (let i = 0; i < 9; i++) {
+            gameBoard.update(i, "")
+        }
+
+        gameBoard.render();
     }
-
-
-
 
     return {start, indexOf, nextPlayer, winner, reset, players}
     
 })()
+
 
 
 let btn = document.querySelector(".start")
@@ -114,6 +118,8 @@ btn.addEventListener("click", Game.start)
 
 let btn2 = document.querySelector(".reset")
 btn2.addEventListener("click", Game.reset)
+
+
 
 
 
