@@ -45,11 +45,23 @@ let Game = (() => {
 
     const start = () => {
 
-        let p1 = document.querySelector(".player-one").value;
-        let p2 = document.querySelector(".player-two").value;
+        let p1 = () => {
+            if(document.querySelector(".player-one").value !== ""){
+               return document.querySelector(".player-one").value
+            } else {
+              return  "Player one"
+            }
+        } 
+        let p2 = () => {
+            if(document.querySelector(".player-two").value !== ""){
+              return  document.querySelector(".player-two").value
+            } else {
+               return "Player two"
+            }
+        }
 
-        players.push(playerFactory(p1 /* = "Player one" */, "X"));
-        players.push(playerFactory(p2 /* = "Player two" */, "O"));
+        players.push(playerFactory(p1(), "X"));
+        players.push(playerFactory(p2(), "O"));
         gameBoard.render()
     }
 
@@ -80,8 +92,6 @@ let Game = (() => {
     }
 
     function winner (board) {
-
-        
 
         if ((board[0] === "X" && board[1] === "X" && board[2] === "X") ||
             (board[3] === "X" && board[4] === "X" && board[5] === "X") ||
@@ -125,7 +135,9 @@ let Game = (() => {
             gameBoard.update(i, "")
         }
 
+        currentPlayerIndex = 0;
         displayController.cleanMark();
+        displayController.msgOutput("");
 
     }
 
