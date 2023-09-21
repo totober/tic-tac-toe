@@ -137,7 +137,7 @@ article#data-index-8 {
     background-image: url(./img/alpha-x.svg);
     background-position: center;
     background-size: cover;
-    filter: invert(12%) sepia(98%) saturate(6099%) hue-rotate(3deg) brightness(73%) contrast(92%);
+    /* filter: invert(12%) sepia(98%) saturate(6099%) hue-rotate(3deg) brightness(73%) contrast(92%); */
 
 }
 
@@ -146,7 +146,7 @@ article#data-index-8 {
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    filter: invert(34%) sepia(90%) saturate(830%) hue-rotate(170deg) brightness(88%) contrast(99%);
+    /* filter: invert(34%) sepia(90%) saturate(830%) hue-rotate(170deg) brightness(88%) contrast(99%); */
 }
 
 .input-container {
