@@ -12,8 +12,8 @@ section {
         "one two three"
         "four five six"
         "seven eight nine";
-    width: 1000px;
-    height: 600px;
+    width: 800px;
+    height: 400px;
     border: 1px solid black;
 }
 
@@ -56,3 +56,11 @@ article#data-index-7 {
 article#data-index-8 {
     grid-area: nine;
 } 
+
+.mark-X {
+    background-color: black;
+}
+
+.mark-O {
+    background-color: pink;
+}

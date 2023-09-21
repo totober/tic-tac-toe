@@ -12,7 +12,6 @@ const gameBoard = (() => {
         box.classList.add("square");
         box.id = `data-index-${index}`;
         box.addEventListener("click", Game.indexOf);
-        console.log(box);
         container.appendChild(box);
     })
    }
@@ -24,6 +23,7 @@ const gameBoard = (() => {
    function update(index, playerMark) {
 
     board[index] = playerMark;
+
     Game.nextPlayer();
     Game.winner(board);
     
@@ -45,8 +45,11 @@ let Game = (() => {
 
     const start = () => {
 
-        players.push(playerFactory(document.querySelector(".player-one").value, "X"));
-        players.push(playerFactory(document.querySelector(".player-two").value, "O"));
+        let p1 = document.querySelector(".player-one").value;
+        let p2 = document.querySelector(".player-two").value;
+
+        players.push(playerFactory(p1 /* = "Player one" */, "X"));
+        players.push(playerFactory(p2 /* = "Player two" */, "O"));
         gameBoard.render()
     }
 
@@ -67,35 +70,53 @@ let Game = (() => {
 
         let playerMark = players[currentPlayerIndex].mark;
         console.log(playerMark)
+          
 
-        if(gameBoard.getBoard()[index].valueOf() === ""){
+        if(gameBoard.getBoard()[index] === ""){
+            displayController.displayMark(index, playerMark)
             gameBoard.update(index, playerMark);
         }
-
-            gameBoard.render();
         
-
     }
 
     function winner (board) {
+
+        
+
         if ((board[0] === "X" && board[1] === "X" && board[2] === "X") ||
             (board[3] === "X" && board[4] === "X" && board[5] === "X") ||
             (board[6] === "X" && board[7] === "X" && board[8] === "X") ||
             (board[0] === "X" && board[4] === "X" && board[8] === "X") ||
-            (board[2] === "X" && board[4] === "X" && board[6] === "X")) 
+            (board[2] === "X" && board[4] === "X" && board[6] === "X") ||
+            (board[0] === "X" && board[3] === "X" && board[6] === "X") ||
+            (board[1] === "X" && board[4] === "X" && board[7] === "X") ||
+            (board[2] === "X" && board[5] === "X" && board[8] === "X") ) 
             {
-                alert("Player 1 wins!");
-                Game.reset();
+                displayController.msgOutput(`${players[0].name} wins!`);
+               // Game.reset();
+               // displayController.cleanMark();
+                
             }
-        else if ((board[0] === "O" && board[1] === "O" && board[2] === "O") ||
+        else if((board[0] === "O" && board[1] === "O" && board[2] === "O") ||
                 (board[3] === "O" && board[4] === "O" && board[5] === "O") ||
                 (board[6] === "O" && board[7] === "O" && board[8] === "O") ||
                 (board[0] === "O" && board[4] === "O" && board[8] === "O") ||
-                (board[2] === "O" && board[4] === "O" && board[6] === "O"))
+                (board[2] === "O" && board[4] === "O" && board[6] === "O") ||
+                (board[0] === "O" && board[3] === "O" && board[6] === "O") ||
+                (board[1] === "O" && board[4] === "O" && board[7] === "O") ||
+                (board[2] === "O" && board[5] === "O" && board[8] === "O") )
                 {
-                    alert("Player 2 wins!");
-                    Game.reset();
+                    displayController.msgOutput(`${players[1].name} wins!`);
+                    //Game.reset();
+                   // displayController.cleanMark();
+                    
                 }
+        else if (board.every(item => item !== "")) {
+
+            displayController.msgOutput("its a tie!")
+           // Game.reset();
+           // displayController.cleanMark();       
+        }
     }
 
     function reset() {
@@ -104,11 +125,51 @@ let Game = (() => {
             gameBoard.update(i, "")
         }
 
-        gameBoard.render();
+        displayController.cleanMark();
+
     }
 
-    return {start, indexOf, nextPlayer, winner, reset, players}
+    return {start, indexOf, nextPlayer, winner, reset}
     
+})()
+
+displayController = (() => {
+    
+
+    function displayMark (index, playerMark) {
+
+      let art = document.querySelectorAll("article");
+
+      art.forEach((item) => {
+         if(item.id.includes(index)){
+            item.classList.add(`mark-${playerMark}`)
+      }
+      })
+
+    }
+
+    function cleanMark () {
+        let art = document.querySelectorAll("article");
+
+        art.forEach( (item) => {
+            if(item.classList.contains("mark-X")){
+                item.classList.remove("mark-X");
+            } else if (item.classList.contains("mark-O")){
+                item.classList.remove("mark-O");
+            }  
+        })
+    }
+
+    function msgOutput (message){
+    
+        let msg = document.querySelector("output"); 
+        msg.textContent = message
+    }
+
+ 
+
+return {displayMark, cleanMark, msgOutput}
+
 })()
 
 
@@ -118,8 +179,4 @@ btn.addEventListener("click", Game.start)
 
 let btn2 = document.querySelector(".reset")
 btn2.addEventListener("click", Game.reset)
-
-
-
-
 
