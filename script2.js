@@ -43,7 +43,7 @@ let Game = (() => {
 
     let players = [];
 
-    const start = () => {
+    function playersCreate () {
 
         let p1 = () => {
             if(document.querySelector(".player-one").value !== ""){
@@ -62,7 +62,12 @@ let Game = (() => {
 
         players.push(playerFactory(p1(), "X"));
         players.push(playerFactory(p2(), "O"));
+    }
+
+    const start = () => {
+        
         gameBoard.render()
+        playersCreate()
     }
 
     let currentPlayerIndex = 0;
@@ -138,6 +143,7 @@ let Game = (() => {
         currentPlayerIndex = 0;
         displayController.cleanMark();
         displayController.msgOutput("");
+        playersCreate()
 
     }
 
@@ -157,7 +163,6 @@ displayController = (() => {
             item.classList.add(`mark-${playerMark}`)
       }
       })
-
     }
 
     function cleanMark () {
@@ -178,12 +183,9 @@ displayController = (() => {
         msg.textContent = message
     }
 
- 
-
 return {displayMark, cleanMark, msgOutput}
 
 })()
-
 
 
 let btn = document.querySelector(".start")
