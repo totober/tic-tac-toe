@@ -123,7 +123,7 @@ let Game = (() => {
                 }
         else if (board.every(item => item !== "")) {
 
-            displayController.msgOutput("its a tie!")
+            displayController.msgOutput("It`s a tie!")
            // Game.reset();
            // displayController.cleanMark();       
         }
