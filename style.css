@@ -13,10 +13,12 @@ body {
         ". title"
         "side main"
         "side input";
-    background-image: linear-gradient(to right, rgb(249, 176, 188), rgb(249, 193, 202)) ;
+    background-image: linear-gradient(to right, rgb(249, 176, 188), rgb(249, 193, 202));
 }
 
-.title-container {
+/* HEADER */
+
+.header-container {
     grid-area: title;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -35,7 +37,9 @@ output{
     font-size: xx-large
 }
 
-.btn-container{
+/* SIDE */
+
+.side-container{
     grid-area: side;
     display: flex;
     flex-direction: column;
@@ -61,24 +65,8 @@ button:active{
     background-color: white;
 }
 
-.input-container {
-    grid-area: input;
-    display: flex;
-    justify-content: space-evenly;
-}
+/* MAIN */
 
-input{
-    width: 180px;
-    height: 12px;
-    border-radius: 5px;
-    padding: 5px;
-    border: 1px solid;
-    font-size: 14px;
-}
-
-label {
-    font-weight: 500;
-}
 
 .main-container {
     grid-area: main;
@@ -94,14 +82,19 @@ section {
         "one two three"
         "four five six"
         "seven eight nine";
-    width: 800px;
+    width: 600px;
     height: 400px;
     border: 1px solid black;
     margin-bottom: 40px;
 }
 
-article.square {
+article {
     border: 1px solid black;
+}
+
+article:hover {
+    background-color: rgb(252, 167, 181);
+    cursor: pointer;
 }
 
 article#data-index-0 {
@@ -154,4 +147,23 @@ article#data-index-8 {
     background-size: contain;
     background-repeat: no-repeat;
     filter: invert(34%) sepia(90%) saturate(830%) hue-rotate(170deg) brightness(88%) contrast(99%);
+}
+
+.input-container {
+    grid-area: input;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+input{
+    width: 180px;
+    height: 12px;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid;
+    font-size: 14px;
+}
+
+label {
+    font-weight: 500;
 }
